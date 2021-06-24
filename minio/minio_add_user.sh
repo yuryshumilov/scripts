@@ -1,16 +1,21 @@
 #!/bin/bash
 
 #Read variables
-$MINIO_ALIAS=$1
-$MINIO_URL=$2
-$MINIO_ACCESS_KEY=$3
-$MINIO_SECRET_KEY=$4
-$MINIO_NEW_USER=$5
-$MINIO_NEW_USER_PASSWORD=$6
-$MINIO_BUCKET_NAME=$7
+while getopts a:u:k:r:h:p:b: flag
+do
+    case "${flag}" in
+        a) MINIO_ALIAS=${OPTARG};;
+        u) MINIO_URL=${OPTARG};;
+        k) MINIO_ACCESS_KEY=${OPTARG};;
+        r) MINIO_SECRET_KEY=${OPTARG};;
+        h) MINIO_NEW_USER=${OPTARG};;
+        p) MINIO_NEW_USER_PASSWORD=${OPTARG};;
+        b) MINIO_BUCKET_NAME=${OPTARG};;
+    esac
+done
 
 #Prepare access-policy.json
-export SED_VAR=$7
+export SED_VAR=$MINIO_BUCKET_NAME
 envsubst < "access-policy.json" > "$MINIO_NEW_USER-access-policy.json"
 cat $MINIO_NEW_USER-access-policy.json
 
