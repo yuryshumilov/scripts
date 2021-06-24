@@ -7,10 +7,10 @@ $MINIO_ACCESS_KEY=$3
 $MINIO_SECRET_KEY=$4
 $MINIO_NEW_USER=$5
 $MINIO_NEW_USER_PASSWORD=$6
-$MINIO_BUCKET_NAME=$1
+$MINIO_BUCKET_NAME=$7
 
 #Prepare access-policy.json
-export SED_VAR=$1
+export SED_VAR=$7
 envsubst < "access-policy.json" > "$MINIO_NEW_USER-access-policy.json"
 cat $MINIO_NEW_USER-access-policy.json
 
